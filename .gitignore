@@ -26,8 +26,15 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+.tsdrc
+
+#IDE configuration files
+.idea
+.vscode
 
 dist
 dev
+docs
 lib
 test
+tools/typings/tsd

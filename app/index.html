@@ -3,10 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My Angular 2 App</title>
-  <base href="<%= APP_BASE %>">
-  <!-- ignore: Aplha 32 router fix -->
-  <script>baseElement = document.querySelector('base');baseElement.attr = baseElement.getAttribute;</script>
+  <title><%= APP_TITLE %></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- inject:css -->
@@ -16,10 +13,24 @@
 
   <app>Loading...</app>
 
-  <!-- inject:js -->
+  <!-- shims:js -->
   <!-- endinject -->
 
-  <script src="<%= APP_BASE %>init.js?v=<%= VERSION %>"></script>
+  <script>
+    System.config(<%= JSON.stringify(SYSTEM_CONFIG) %>)
+
+    System.import('<%= APP_BASE + APP_DEST %>/bootstrap')
+      .catch(function (e) {
+        console.error(e,
+          'Report this error at https://github.com/mgechev/angular2-seed/issues');
+      });
+  </script>
+
+  <!-- libs:js -->
+  <!-- endinject -->
+
+  <!-- inject:js -->
+  <!-- endinject -->
 
 </body>
 </html>

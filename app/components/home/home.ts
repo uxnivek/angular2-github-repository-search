@@ -1,11 +1,9 @@
-import {Component, View} from 'angular2/angular2';
-import {RouterLink} from 'angular2/router';
+import {Component} from 'angular2/angular2';
 
 @Component({
-  selector: 'component-1'
+  selector: 'home',
+  templateUrl: './components/home/home.html',
+  styleUrls: ['./components/home/home.css']
 })
-@View({
-  templateUrl: './components/home/home.html?v=<%= VERSION %>',
-  directives: [RouterLink]
-})
-export class Home {}
+
+export class HomeCmp {}
