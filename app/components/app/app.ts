@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from 'angular2/angular2';
+import {Component, ViewEncapsulation} from 'angular2/core';
 import {
   RouteConfig,
   ROUTER_DIRECTIVES
@@ -7,6 +7,7 @@ import {
 
 import {HomeCmp} from '../home/home';
 import {AboutCmp} from '../about/about';
+import {UserCmp} from '../user/user';
 import {NameList} from '../../services/name_list';
 
 @Component({
@@ -19,6 +20,8 @@ import {NameList} from '../../services/name_list';
 })
 @RouteConfig([
   { path: '/', component: HomeCmp, as: 'Home' },
-  { path: '/about', component: AboutCmp, as: 'About' }
+  { path: '/about', component: AboutCmp, as: 'About' },
+  { path: '/search', component: UserCmp, as: 'Search' }
+
 ])
 export class AppCmp {}

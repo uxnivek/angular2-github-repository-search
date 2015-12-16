@@ -1,13 +1,12 @@
-import {Component, CORE_DIRECTIVES} from 'angular2/angular2';
-
-import {UserPanel} from '../user-panel/user_panel';
+import {Component} from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
 
 import {NameList} from '../../services/name_list';
 
 @Component({
   selector: 'about',
   templateUrl: './components/about/about.html',
-  directives: [CORE_DIRECTIVES, UserPanel]
+  directives: [CORE_DIRECTIVES]
 })
 export class AboutCmp {
   constructor(public list: NameList) {
