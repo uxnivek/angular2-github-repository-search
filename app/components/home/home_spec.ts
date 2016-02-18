@@ -16,7 +16,7 @@ export function main() {
         return tcb.overrideTemplate(TestComponent, '<div><home></home></div>')
           .createAsync(TestComponent)
           .then((rootTC) => {
-            let homeDOMEl = rootTC.debugElement.componentViewChildren[0].nativeElement;
+            let homeDOMEl = rootTC.debugElement.children[0].nativeElement;
 
             expect(DOM.querySelectorAll(homeDOMEl, 'h1')[0].textContent).toEqual('Howdy!');
           });
