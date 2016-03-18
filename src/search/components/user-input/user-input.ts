@@ -1,27 +1,30 @@
 import {Component} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
-
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/interval';
 
 @Component({
-  selector: 'user',
-  moduleId: module.id,
-  templateUrl: './user.html',
-  viewProviders: [HTTP_PROVIDERS],
-  directives: [CORE_DIRECTIVES]
-
+    selector: 'user-input',
+    template: `
+        <form (submit)="searchUser(username)">
+            <input [(ngModel)]="username" />
+            <button type="submit">Search</button>
+        </form>`,
+    viewProviders: [Http, HTTP_PROVIDERS],
+    directives: [CORE_DIRECTIVES]
 })
 
-export class UserCmp {
-  user;
-  repos;
-  constructor(public http: Http) { }
+export class UserInput {
+  user: Object;
+
+  constructor(
+    public http: Http
+  ) {}
 
   searchUser(username) {
     event.preventDefault();
-    var userUrl = this.getUserUrl(username);
+    let userUrl = this.getUserUrl(username);
     this.http.get(userUrl)
       // Call map on the response observable to get the parsed people object
       .map(res => res.json())
@@ -32,18 +35,19 @@ export class UserCmp {
         () => console.log('After fetch user')
       );
 
-    var userReposUrl = this.getUserReposUrl(username);
+    let userReposUrl = this.getUserReposUrl(username);
     this.http.get(userReposUrl)
       .map(res => res.json())
       .subscribe(
-        repos => this.repos = repos,
+        // repos => this.showRepos(repos), //this.repos = repos,
         () => console.log('After fetch repositories')
       );
   }
 
-  getRepoLangs(repository) {
-    console.log(repository);
-  }
+//   showRepos(repos) {
+//       console.log(repos);
+//     this.repoList.setRepos(repos);
+//   }
 
   getUserUrl(username) {
     return 'https://api.github.com/' + 'users/' + username;
@@ -52,5 +56,4 @@ export class UserCmp {
   getUserReposUrl(username) {
     return 'https://api.github.com/' + 'users/' + username + '/repos';
   }
-
 }
