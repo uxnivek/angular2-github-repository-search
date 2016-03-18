@@ -1,33 +1,47 @@
-.sample-app-content {
-  font-family: Verdana;
+.selected {
+    background-color: #CFD8DC !important;
+    color: white;
 }
-.sample-app-content h1 {
-  color: #999;
-  font-size: 3em;
+.heroes {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 10em;
 }
-.sample-app-content h2 {
-  color: #990000;
-  font-size: 2em;
+.heroes li {
+    cursor: pointer;
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
 }
-.sample-app-content p,
-.sample-app-content nav {
-  padding: 30px;
+.heroes li.selected:hover {
+    background-color: #BBD8DC !important;
+    color: white;
 }
-.sample-app-content li,
-.sample-app-content p {
-  font-size: 1.2em;
+.heroes li:hover {
+    color: #607D8B;
+    background-color: #DDD;
+    left: .1em;
 }
-.sample-app-content li {
-  font-family: Consolas;
+.heroes .text {
+    position: relative;
+    top: -3px;
 }
-.sample-app-content nav a {
-  display: inline-block;
-  margin-right: 15px;
+.heroes .badge {
+    display: inline-block;
+    font-size: small;
+    color: white;
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #607D8B;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
 }
-.sample-app-content input,
-.sample-app-content button {
-  padding: 5px;
-  font-size: 1em;
-  outline: none;
-}
-
