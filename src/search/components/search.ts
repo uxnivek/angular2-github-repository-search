@@ -1,22 +1,64 @@
 import {Component} from 'angular2/core';
+import {CORE_DIRECTIVES} from 'angular2/common';
 
-import {UserInput} from './user-input/user-input';
-import {UserDetails} from './user-details/user-details';
-import {RepoList} from './repo-list/repo-list';
+import {User} from './user';
+import {UserService} from './user-service';
+import {UserDetailCmp} from './user-detail';
+
+import {Repository} from './repository';
+import {RepositoryService} from './repository-service';
+import {RepositoriesCmp} from './repositories';
 
 @Component({
-  moduleId: module.id,
-  template: `
-    <user-input></user-input>
-    <user-details></user-details>
-    <repo-list></repo-list>
-    `,
-//   viewProviders: [UserInput, UserDetails, RepoList],
-  directives: [UserInput, UserDetails, RepoList]
+  templateUrl: 'search/components/search.html',
+  styleUrls: ['search/components/search.css'],
+  directives: [CORE_DIRECTIVES, UserDetailCmp, RepositoriesCmp]
 })
 
 export class SearchCmp {
-    // constructor(@Inject(UserInput) userInput) {
-    //     console.log(userInput);
-    // }
+  user: User;
+  userRepositories: Repository[];
+  errorMessage: any;
+
+  constructor(
+    private _userService: UserService,
+    private _repositoryService: RepositoryService
+    ) { }
+
+  searchUser(username) {
+    if (username) {
+      this._getUserDetail(username);
+      this._getUserRepositories(username);
+    }
+  }
+
+  private _getUserDetail(username) {
+    return this._userService.getUser(username)
+      .subscribe(
+      user => {
+        this.user = user;
+        console.log(this.user);
+      },
+      error => {
+        this.errorMessage = <any>error;
+        this._logError();
+      });
+  }
+
+  private _getUserRepositories(username) {
+    return this._repositoryService.getRepositories(username)
+      .subscribe(
+      repositories => {
+        this.userRepositories = repositories;
+        console.log(this.userRepositories);
+      },
+      error => {
+        this.errorMessage = <any>error;
+        this._logError();
+      });
+  }
+
+  private _logError() {
+    console.log(this.errorMessage);
+  }
 }

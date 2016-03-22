@@ -1,0 +1,11 @@
+<h2>Search for Github users</h2>
+<form name="user">
+  <p>
+    <input [(ngModel)]="username" />
+    <button (click)="searchUser(username)">Search</button>
+  </p>
+  <p class="error">{{errorMessage}}</p>
+</form>
+
+<user-detail [user]="user"></user-detail>
+<repositories [repositories]="userRepositories"></repositories>

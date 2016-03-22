@@ -7,8 +7,7 @@ import {HeroService} from './hero-service';
 @Component({
   selector: 'hero-detail',
   inputs: ['hero'],
-  templateUrl: 'heros/components/hero-detail.html',
-  styleUrls: ['heros/components/hero-detail.css']
+  templateUrl: 'heros/components/hero-detail.html'
 })
 export class HeroDetailCmp implements OnInit {
     hero: Hero;

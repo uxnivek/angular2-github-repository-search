@@ -5,13 +5,20 @@ import {
     ROUTER_PROVIDERS
 } from 'angular2/router';
 
-import {AboutCmp} from '../../about/components/about';
+// import {AboutCmp} from '../../about/components/about';
 import {SearchCmp} from '../../search/components/search';
 import {HerosCmp} from '../../heros/components/heros';
 import {HeroDetailCmp} from '../../heros/components/hero-detail';
-import {HeroService} from '../../heros/components/hero-service';
-import {NameList} from '../../shared/services/name_list';
+// import {NameList} from '../../shared/services/name_list';
 import {DashboardCmp} from '../../dashboard/components/dashboard';
+
+// Services
+import {HeroService} from '../../heros/components/hero-service';
+import {UserService} from '../../search/components/user-service';
+import {RepositoryService} from '../../search/components/repository-service';
+import {LanguageService} from '../../search/components/language-service';
+
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app',
@@ -24,11 +31,13 @@ import {DashboardCmp} from '../../dashboard/components/dashboard';
   providers: [
       ROUTER_PROVIDERS,
       HeroService,
-      NameList
+      UserService,
+      RepositoryService,
+      LanguageService
   ]
 })
 @RouteConfig([
-  { path: '/about', name: 'About', component: AboutCmp },
+//   { path: '/about', name: 'About', component: AboutCmp },
   { path: '/search', name: 'Search', component: SearchCmp },
   { path: '/heros', name: 'Heros', component: HerosCmp },
   { path: '/dashboard', name: 'Dashboard', component: DashboardCmp, useAsDefault: true },

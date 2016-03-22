@@ -1,0 +1,14 @@
+<ul *ngIf="repositories" class="repositories">
+  <li class="source" *ngFor="#repo of repositories">
+    <p class="repo">{{repo.name}}</p>
+    <div class="source" *ngIf="repo.showDetail">
+      <div class="repo-detail">
+        <p class="repo-url"><a href="{{repo.html_url}}" target="_blank" class="mini-repo-list-item css-truncate">{{repo.html_url}}</a></p>
+        <p class="repo-description">{{repo.description}}</p>
+      </div>
+      <p>languages:</p>
+      <div id="chart{{repo.id}}" class="languages-pie-chart"></div>
+    </div>
+    <button class="languages-btn" (click)="getRepositoryLanguages(repo)">{{repo.showDetail ? 'Hide Detail' : 'Show Detail'}}</button>
+  </li>
+</ul>
