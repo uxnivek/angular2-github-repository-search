@@ -18,6 +18,7 @@ export class LanguageService {
     return this.http.get(languagesUrl)
     // Call map on the response observable to get the parsed people object
       .map(languages => <Language[]> languages.json())
+      .do(data => console.log('languages:', data)) // eyeball results in the console
       .catch(this.handleError);
   }
 

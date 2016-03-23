@@ -11,6 +11,7 @@ import {PieChart} from './pie-chart';
   selector: 'repositories',
   moduleId: module.id,
   templateUrl: './repositories.html',
+  styleUrls: ['./repositories.css'],
   viewProviders: [HTTP_PROVIDERS],
   directives: [CORE_DIRECTIVES],
   inputs: ['repositories']
@@ -29,8 +30,7 @@ export class RepositoriesCmp {
     if (repository.showDetail) {
       this.languageService.getLanguages(repository)
       .subscribe(
-        languages => this._drawPieChart(<Language[]> languages, repository),
-        () => console.log('After fetch languages')
+        languages => this._drawPieChart(<Language[]> languages, repository)
       );
     }
   }

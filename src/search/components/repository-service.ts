@@ -14,6 +14,7 @@ export class RepositoryService {
     let userReposUrl = this._getUserReposUrl(username);
     return this.http.get(userReposUrl)
       .map(res => <Repository[]> res.json())
+      .do(data => console.log('repositories:', data)) // eyeball results in the console
       .catch(this.handleError);
   }
 

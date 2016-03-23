@@ -1,0 +1,7 @@
+.repositories {
+  list-style-type: none;
+}
+
+.repository .name {
+  margin-bottom: 0;
+}

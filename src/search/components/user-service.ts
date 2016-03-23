@@ -17,6 +17,7 @@ export class UserService {
     return this.http.get(userUrl)
       // Call map on the response observable to get the parsed people object
       .map(res => <User> res.json())
+      .do(data => console.log('user:', data)) // eyeball results in the console
       .catch(this.handleError);
   }
 

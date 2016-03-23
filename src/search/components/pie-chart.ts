@@ -2,74 +2,82 @@
 // import * as d3 from 'd3';
 import {Language} from './language';
 import {Repository} from './repository';
-var d3 = require('d3/d3');
-var _ = require('lodash/index');
+let d3 = require('d3/d3');
+let _ = require('lodash/index');
 
 export class PieChart {
+  radius: number;
 
   constructor(
-    public langs: Language[],
-    public repository: Repository
-  ) { }
+    private langs: Language[],
+    private repository: Repository
+    ) { }
 
-  draw() {
-    var w = 200, h = w, r = h/2,
-      color = d3.scale.category20c(),
-      data = [],
-      maxValue = 0;
+  draw(radius = 100) {
+    // Return if no language
+    if(_.isEmpty(this.langs)) return;
+
+    this.radius = radius;
+    let w = this.radius * 2;
+    let h = w;
+    let color = d3.scale.category20c();
+    let data = [];
+    let maxValue = 0;
 
     // First, determine the maxValue
-    _.forEach(this.langs, function(value, key) {
+    _.forEach(this.langs, (value, key) => {
       maxValue = Math.max(value, maxValue);
     });
 
     // Next, don't show fractions that are less than 2%
-    _.forEach(this.langs, function(value, key) {
-      var addData = false;
+    _.forEach(this.langs, (value, key) => {
+      let addData = false;
 
-      if ( value !== maxValue ) {
-        var pc = value / maxValue;
-        if ( pc >= 0.02) {
+      if (value !== maxValue) {
+        let pc = value / maxValue;
+        if (pc >= 0.02) {
           addData = true;
         }
       } else {
         addData = true;
       }
 
-      if ( addData ) {
-        data.push({'label':key, 'value':value});
+      if (addData) {
+        data.push({ 'label': key, 'value': value });
       }
     });
 
-    var vis = d3.select('#chart' + this.repository.id).html('')
-    .append('svg:svg').data([data]).attr('width', w).attr('height', h)
-    .append('svg:g').attr('transform', 'translate(' + r + ',' + r + ')');
-    var pie = d3.layout.pie().value(function(d){
+    let vis = d3.select('#chart' + this.repository.id).html('')
+      .append('svg:svg').data([data]).attr('width', w).attr('height', h)
+      .append('svg:g').attr('transform', 'translate(' + this.radius + ',' + this.radius + ')');
+
+    let pie = d3.layout.pie().value((d) => {
       return d.value;
     });
 
     // declare an arc generator function
-    var arc = d3.svg.arc().outerRadius(r);
+    let arc = d3.svg.arc().outerRadius(this.radius);
 
     // select paths, use arc generator to draw
-    var arcs = vis.selectAll('g.slice').data(pie).enter().append('svg:g').attr('class', 'slice');
+    let arcs = vis.selectAll('g.slice').data(pie).enter().append('svg:g').attr('class', 'slice');
     arcs.append('svg:path')
-    .attr('fill', function(d, i){
+      .attr('fill', (d, i) => {
       return color(i);
     })
-    .attr('d', function (d) {
+      .attr('d', (d) => {
       // log the result of the arc generator to show how cool it is :)
       return arc(d);
     });
 
     // add the text
-    arcs.append('svg:text').attr('transform', function(d){
+    arcs.append('svg:text').attr('transform', (d) => {
       d.innerRadius = 0;
-      d.outerRadius = r;
-      return 'translate(' + arc.centroid(d) + ')';}).attr('text-anchor', 'middle').text( function(d, i) {
-        return data[i].label;
-      }
-    );
+      d.outerRadius = this.radius;
+      return 'translate(' + arc.centroid(d) + ')';
+    }).attr('text-anchor', 'middle').text((d, i) => {
+      return data[i].label;
+    }
+      );
   }
 
 };
