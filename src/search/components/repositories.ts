@@ -1,19 +1,14 @@
 import {Component} from 'angular2/core';
-import {CORE_DIRECTIVES} from 'angular2/common';
+import {Http} from 'angular2/http';
 
-import {Http, HTTP_PROVIDERS} from 'angular2/http';
 import {Repository} from './repository';
-import {Language} from './language';
 import {LanguageService} from './language-service';
 import {PieChart} from './pie-chart';
 
 @Component({
   selector: 'repositories',
-  moduleId: module.id,
-  templateUrl: './repositories.html',
-  styleUrls: ['./repositories.css'],
-  viewProviders: [HTTP_PROVIDERS],
-  directives: [CORE_DIRECTIVES],
+  templateUrl: 'search/components/repositories.html',
+  styleUrls: ['search/components/repositories.css'],
   inputs: ['repositories']
 })
 
@@ -30,12 +25,12 @@ export class RepositoriesCmp {
     if (repository.showDetail) {
       this.languageService.getLanguages(repository)
       .subscribe(
-        languages => this._drawPieChart(<Language[]> languages, repository)
+        languages => this._drawPieChart(languages, repository)
       );
     }
   }
 
-  private _drawPieChart(languages: Language[], repository: Repository) {
+  private _drawPieChart(languages, repository: Repository) {
     let pieChart = new PieChart(languages, repository);
     pieChart.draw();
   }

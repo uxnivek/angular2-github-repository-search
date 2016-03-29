@@ -1,4 +1,4 @@
-import {Language} from './language';
+// import {Language} from './language';
 import {Repository} from './repository';
 import {Injectable} from 'angular2/core';
 import {Http, Response} from 'angular2/http';
@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class LanguageService {
-  languages: Language[];
+  // languages: Array<Object>;
   private _githubEndPoint = 'https://api.github.com/repos/';
 
   constructor(
@@ -16,8 +16,8 @@ export class LanguageService {
   getLanguages(repository: Repository) {
     let languagesUrl = this._getLanguagesUrl(repository);
     return this.http.get(languagesUrl)
-    // Call map on the response observable to get the parsed people object
-      .map(languages => <Language[]> languages.json())
+      // Call map on the response observable to get the parsed people object
+      .map(languages => languages.json())
       .do(data => console.log('languages:', data)) // eyeball results in the console
       .catch(this.handleError);
   }

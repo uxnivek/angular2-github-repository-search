@@ -1,6 +1,4 @@
 // https://github.com/mgechev/angular2-seed/issues/272
-// import * as d3 from 'd3';
-import {Language} from './language';
 import {Repository} from './repository';
 let d3 = require('d3/d3');
 let _ = require('lodash/index');
@@ -9,13 +7,13 @@ export class PieChart {
   radius: number;
 
   constructor(
-    private langs: Language[],
+    private languages: Array<Object>,
     private repository: Repository
     ) { }
 
   draw(radius = 100) {
     // Return if no language
-    if(_.isEmpty(this.langs)) return;
+    if (_.isEmpty(this.languages)) return;
 
     this.radius = radius;
     let w = this.radius * 2;
@@ -25,14 +23,13 @@ export class PieChart {
     let maxValue = 0;
 
     // First, determine the maxValue
-    _.forEach(this.langs, (value, key) => {
+    _.forEach(this.languages, (value, key) => {
       maxValue = Math.max(value, maxValue);
     });
 
     // Next, don't show fractions that are less than 2%
-    _.forEach(this.langs, (value, key) => {
+    _.forEach(this.languages, (value, key) => {
       let addData = false;
-
       if (value !== maxValue) {
         let pc = value / maxValue;
         if (pc >= 0.02) {
@@ -76,8 +73,7 @@ export class PieChart {
       return 'translate(' + arc.centroid(d) + ')';
     }).attr('text-anchor', 'middle').text((d, i) => {
       return data[i].label;
-    }
-      );
+    });
   }
 
 };
